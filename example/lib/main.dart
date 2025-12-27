@@ -22,6 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   PrintSize? selectedPrintSize;
   PrintOrientation? selectedPrintOrientation;
+  TextDirection selectedTextDirection = TextDirection.LTR;
 
   // Custom size controller for width and height
   final TextEditingController _widthController =
@@ -42,7 +43,48 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<String> generateExampleDocument() async {
-    const htmlContent = """
+    // Use RTL sample content when RTL is selected
+    final htmlContent = selectedTextDirection == TextDirection.RTL
+        ? '''
+    <!DOCTYPE html>
+    <html dir="rtl" lang="ar">
+      <head>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td, p {
+          padding: 5px;
+          text-align: right;
+        }
+        </style>
+      </head>
+      <body>
+        <h2>PDF تم إنشاؤه باستخدام flutter_html_to_pdf_plus</h2>
+        
+        <table style="width:100%">
+          <caption>جدول HTML نموذجي</caption>
+          <tr>
+            <th>الشهر</th>
+            <th>المدخرات</th>
+          </tr>
+          <tr>
+            <td>يناير</td>
+            <td>١٠٠</td>
+          </tr>
+          <tr>
+            <td>فبراير</td>
+            <td>٥٠</td>
+          </tr>
+        </table>
+        
+        <p>صورة محملة من الويب</p>
+        <img src="https://i.imgur.com/wxaJsXF.png" alt="web-img">
+      </body>
+    </html>
+    '''
+        : '''
     <!DOCTYPE html>
     <html>
       <head>
@@ -80,7 +122,7 @@ class _MyAppState extends State<MyApp> {
         <img src="https://i.imgur.com/wxaJsXF.png" alt="web-img">
       </body>
     </html>
-    """;
+    ''';
 
     Directory appDocDir = await getApplicationDocumentsDirectory();
     final targetPath = appDocDir.path;
@@ -104,6 +146,7 @@ class _MyAppState extends State<MyApp> {
         printSize: PrintSize.Custom,
         printOrientation: selectedPrintOrientation ?? PrintOrientation.Portrait,
         customSize: CustomSize(width: width, height: height),
+        textDirection: selectedTextDirection,
       );
     } else {
       configuration = PrintPdfConfiguration(
@@ -111,6 +154,7 @@ class _MyAppState extends State<MyApp> {
         targetName: targetFileName,
         printSize: selectedPrintSize ?? PrintSize.A4,
         printOrientation: selectedPrintOrientation ?? PrintOrientation.Portrait,
+        textDirection: selectedTextDirection,
       );
     }
 
@@ -133,7 +177,8 @@ class _MyAppState extends State<MyApp> {
         child: Column(
           children: [
             DropdownButtonFormField(
-              value: selectedPrintOrientation ?? PrintOrientation.Portrait,
+              initialValue:
+                  selectedPrintOrientation ?? PrintOrientation.Portrait,
               items: [
                 ...PrintOrientation.values.map((e) {
                   return DropdownMenuItem(
@@ -147,7 +192,7 @@ class _MyAppState extends State<MyApp> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField(
-              value: selectedPrintSize ?? PrintSize.A4,
+              initialValue: selectedPrintSize ?? PrintSize.A4,
               items: [
                 ...PrintSize.values.map((e) {
                   return DropdownMenuItem(
@@ -157,6 +202,26 @@ class _MyAppState extends State<MyApp> {
                 })
               ],
               onChanged: (value) => setState(() => selectedPrintSize = value),
+            ),
+            const SizedBox(height: 16),
+            // Text Direction dropdown
+            DropdownButtonFormField(
+              initialValue: selectedTextDirection,
+              decoration: const InputDecoration(
+                labelText: 'Text Direction',
+              ),
+              items: [
+                ...TextDirection.values.map((e) {
+                  return DropdownMenuItem(
+                    value: e,
+                    child: Text(e == TextDirection.RTL
+                        ? 'RTL (Right-to-Left)'
+                        : 'LTR (Left-to-Right)'),
+                  );
+                })
+              ],
+              onChanged: (value) =>
+                  setState(() => selectedTextDirection = value!),
             ),
             const SizedBox(height: 16),
             // Show custom size inputs when Custom is selected

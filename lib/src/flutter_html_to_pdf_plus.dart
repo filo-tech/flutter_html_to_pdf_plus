@@ -29,7 +29,10 @@ class FlutterHtmlToPdf {
       content,
       temporaryCreatedHtmlFile.path,
     );
-    await FileUtils.appendStyleTagToHtmlFile(temporaryCreatedHtmlFile.path);
+    await FileUtils.appendStyleTagToHtmlFile(
+      temporaryCreatedHtmlFile.path,
+      textDirection: configuration.textDirection,
+    );
 
     final String generatedPdfFilePath = await _convertFromHtmlFilePath(
       temporaryCreatedHtmlFile.path,
@@ -69,7 +72,10 @@ class FlutterHtmlToPdf {
       content,
       temporaryCreatedHtmlFile.path,
     );
-    await FileUtils.appendStyleTagToHtmlFile(temporaryCreatedHtmlFile.path);
+    await FileUtils.appendStyleTagToHtmlFile(
+      temporaryCreatedHtmlFile.path,
+      textDirection: configuration.textDirection,
+    );
 
     final String generatedPdfFilePath = await _convertFromHtmlFilePath(
       temporaryCreatedHtmlFile.path,
@@ -95,7 +101,10 @@ class FlutterHtmlToPdf {
     required File htmlFile,
     required PrintPdfConfiguration configuration,
   }) async {
-    await FileUtils.appendStyleTagToHtmlFile(htmlFile.path);
+    await FileUtils.appendStyleTagToHtmlFile(
+      htmlFile.path,
+      textDirection: configuration.textDirection,
+    );
     final String generatedPdfFilePath = await _convertFromHtmlFilePath(
       htmlFile.path,
       configuration,
@@ -114,7 +123,10 @@ class FlutterHtmlToPdf {
     required File htmlFile,
     required PrintPdfConfiguration configuration,
   }) async {
-    await FileUtils.appendStyleTagToHtmlFile(htmlFile.path);
+    await FileUtils.appendStyleTagToHtmlFile(
+      htmlFile.path,
+      textDirection: configuration.textDirection,
+    );
     final String generatedPdfFilePath = await _convertFromHtmlFilePath(
       htmlFile.path,
       configuration,
@@ -129,7 +141,10 @@ class FlutterHtmlToPdf {
     required String htmlFilePath,
     required PrintPdfConfiguration configuration,
   }) async {
-    await FileUtils.appendStyleTagToHtmlFile(htmlFilePath);
+    await FileUtils.appendStyleTagToHtmlFile(
+      htmlFilePath,
+      textDirection: configuration.textDirection,
+    );
     final String generatedPdfFilePath = await _convertFromHtmlFilePath(
       htmlFilePath,
       configuration,
@@ -148,7 +163,10 @@ class FlutterHtmlToPdf {
     required String htmlFilePath,
     required PrintPdfConfiguration configuration,
   }) async {
-    await FileUtils.appendStyleTagToHtmlFile(htmlFilePath);
+    await FileUtils.appendStyleTagToHtmlFile(
+      htmlFilePath,
+      textDirection: configuration.textDirection,
+    );
     final String generatedPdfFilePath = await _convertFromHtmlFilePath(
       htmlFilePath,
       configuration,

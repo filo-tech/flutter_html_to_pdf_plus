@@ -10,6 +10,7 @@ Flutter plugin for generating PDF files from HTML content with support for custo
 - Support for all standard paper sizes (A0-A10)
 - Custom document sizes with user-defined dimensions
 - Portrait and landscape orientations
+- **RTL (Right-to-Left) text direction support**
 - Customizable page margins
 - Support for both Android and iOS
 - Support for web images and local images
@@ -128,6 +129,28 @@ Web images are also supported:
 
 - Portrait
 - Landscape
+
+## Text Direction (RTL Support)
+
+The plugin supports Right-to-Left (RTL) text direction for languages such as Arabic, Hebrew, Persian, and Urdu.
+
+```dart
+final configuration = PrintPdfConfiguration(
+  targetDirectory: targetDirectory,
+  targetName: targetName,
+  printSize: PrintSize.A4,
+  textDirection: TextDirection.RTL, // Enable RTL
+);
+
+final generatedPdfFile = await FlutterHtmlToPdf.convertFromHtmlContent(
+  content: arabicHtmlContent,
+  configuration: configuration,
+);
+```
+
+**Supported values:**
+- `TextDirection.LTR` - Left-to-Right (default)
+- `TextDirection.RTL` - Right-to-Left
 
 ## Contributing
 
