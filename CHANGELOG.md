@@ -1,3 +1,9 @@
+# 0.4.0
+
+### New features
+
+- Add RTL (Right-to-Left) text direction support
+
 # 0.3.0
 
 ### New features

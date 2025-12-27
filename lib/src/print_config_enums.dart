@@ -1,5 +1,26 @@
 // ignore_for_file: constant_identifier_names
 
+/// Text direction for the PDF document
+enum TextDirection {
+  /// Left-to-Right (default for most languages)
+  LTR,
+
+  /// Right-to-Left (for Arabic, Hebrew, Persian, Urdu, etc.)
+  RTL,
+}
+
+extension TextDirectionExt on TextDirection {
+  /// Returns the CSS direction value
+  String get directionKey {
+    switch (this) {
+      case TextDirection.LTR:
+        return "ltr";
+      case TextDirection.RTL:
+        return "rtl";
+    }
+  }
+}
+
 /// Custom size class for defining custom document dimensions in pixels (72 PPI)
 class CustomSize {
   final int width;
