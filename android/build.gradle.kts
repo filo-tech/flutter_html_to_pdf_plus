@@ -27,19 +27,19 @@ allprojects {
 
 android {
     namespace = "com.originoss.flutter_html_to_pdf_plus"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 19
     }
 
     compileOptions {
-        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
-        targetCompatibility = org.gradle.api.JavaVersion.VERSION_1_8
+        sourceCompatibility = org.gradle.api.JavaVersion.VERSION_17
+        targetCompatibility = org.gradle.api.JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     sourceSets {
